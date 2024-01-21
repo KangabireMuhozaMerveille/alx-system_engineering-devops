@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#connecting to aserver using the private key
+
+server_address="34.207.61.73"
+ssh -i ~/.ssh/id_rsa ubuntu@$server_address
