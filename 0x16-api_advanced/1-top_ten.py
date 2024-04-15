@@ -15,7 +15,7 @@ def top_ten(subreddit):
         print(None)
     endpoint = 'https://www.reddit.com'
     headers = {'user-agent': '0x16-api_advanced:project:\
-v1.0.0 (by /u/shobi_ola)'}
+v1.0.0 (by /u/KangabireMuhozaMerveille)'}
     params = {'limit': 10}
     info = requests.get('{}/r/{}/hot.json'.format(endpoint, subreddit),
                         allow_redirects=False,
@@ -25,5 +25,6 @@ v1.0.0 (by /u/shobi_ola)'}
         json_info = info.json()
         for post in json_info.get('data').get('children'):
             print(post.get('data').get('title'))
+        print("OK")
     else:
         print(None)
