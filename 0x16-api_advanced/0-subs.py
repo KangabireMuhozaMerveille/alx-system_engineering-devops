@@ -1,35 +1,27 @@
 #!/usr/bin/python3
 """
-uses reddit's APIs
-to get the number of total number of subscribers
-of a subrredit
+a python program
 """
-
-
-import json
 import requests
-import sys
-
 
 def number_of_subscribers(subreddit):
     """
-    returns the number of subscribers of a given subrredit
+    reads the number of subscribers
     """
-    URL = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'User-Agent': 'Mozilla/5.0 (compatible; your_bot/1.0; +http://yourwebsite.com/bot)'}
 
-    headers = {
-            "User-Agent": "0-subs/1.0"
-    }
-
-    raw_response = requests.get(URL, headers=headers)
-
-    if (raw_response.status_code) == 200:
-        json_response = raw_response.json()
-        sub_count = json_response['data']['subscribers']
-        return sub_count
-
-    else:
+    try:
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        
+        if response.status_code == 200:
+            data = response.json()
+            return data['data']['subscribers']
+        elif response.status_code == 404:
+            return 0
+        else:
+            # For other status codes, we return 0
+            return 0
+    except requests.RequestException:
+        # If there was an issue with the request, return 0
         return 0
-
-if __name__ == "__main__":
-    pass
